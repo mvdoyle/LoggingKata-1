@@ -20,6 +20,7 @@ namespace LoggingKata.Test
             //Act
             var result = nullTestParse.Parse(nullString);
 
+            //Assert
             Assert.IsNull(result);
         }
 
