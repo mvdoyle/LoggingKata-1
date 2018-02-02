@@ -31,6 +31,11 @@ namespace LoggingKata
             //TODO:  Find the two TacoBells in Alabama that are the furthurest from one another.
             //HINT:  You'll need two nested forloops
 
+            /*for (int i = 0; i < 10; i++)
+            {
+
+            }*/
+
             // DON'T FORGET TO LOG YOUR STEPS
             // Grab the path from Environment.CurrentDirectory + the name of your file
 
