@@ -19,8 +19,12 @@ namespace LoggingKata
 
         public ITrackable Parse(string line)
         {
-            //DO not fail if one record parsing fails, return null
-            return null; //TODO Implement
+            //if (double.Parse(line) == 0)
+            //{
+                //DO not fail if one record parsing fails, return null
+                //return null; //TODO Implement
+            //}
+            return null;
         }
     }
 }
