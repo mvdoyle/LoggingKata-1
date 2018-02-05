@@ -19,9 +19,6 @@ namespace LoggingKata
             Logger.Info("Log initialized");
 
             var file = Path.Combine(Environment.CurrentDirectory, "Taco_Bell-US-AL-Alabama.csv");
-
-            Console.WriteLine("file: " + file);
-
             var lines = File.ReadAllLines(file);
 
             if (lines.Length == 0)
@@ -67,7 +64,7 @@ namespace LoggingKata
                     }
                 }
 
-                Console.WriteLine($"The two taco bells farthest away from each other are {locationA} and {locationB}");
+                Console.WriteLine($"The two taco bells farthest away from each other are {locationA.Name} and {locationB.Name}");
                 Console.ReadLine();
             }
         }

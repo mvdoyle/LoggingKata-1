@@ -18,7 +18,8 @@ namespace LoggingKata
         {
             if (string.IsNullOrEmpty(line))
             {
-                
+                Logger.Warn("No values pulled in");
+                return null;
             }
             var cells = line.Split(',');
             
