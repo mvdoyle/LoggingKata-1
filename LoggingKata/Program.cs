@@ -23,16 +23,24 @@ namespace LoggingKata
             Console.WriteLine("file: " + file);
 
             var lines = File.ReadAllLines(file);
-            Logger.Error("No lines were grabbed from the csv file");
-            Logger.Warn("Only 1 line grabbed from csv file");
+
+            if (lines.Length == 0)
+            {
+                Logger.Error("No lines were grabbed from the csv file");
+            }
+
+            if (lines.Length == 1)
+            {
+                Logger.Warn("Only 1 line grabbed from csv file");
+            }
 
             var parser = new TacoParser();
 
-            var locations = lines.Select(line => parser.Parse(line));
+            var locations = lines.Select(line => parser.Parse(line)).ToList();
 
             ITrackable locationA = null;
             ITrackable locationB = null;
-            double distance = 0;
+            var distance = 0.0;
 
             foreach (var locA in locations)
             {
@@ -49,18 +57,19 @@ namespace LoggingKata
                         Latitude = locB.Location.Latitude,
                         Longitude = locB.Location.Longitude
                     };
-                    
+
                     var farthestDistance = GeoCalculator.GetDistance(origin, destination);
                     if (farthestDistance > distance)
                     {
+                        distance = farthestDistance;
                         locationA = locA;
                         locationB = locB;
-                        distance = farthestDistance;
                     }
-
                 }
-            }
 
+                Console.WriteLine($"The two taco bells farthest away from each other are {locationA} and {locationB}");
+                Console.ReadLine();
+            }
         }
     }
 }

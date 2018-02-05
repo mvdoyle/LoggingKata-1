@@ -11,37 +11,39 @@ namespace LoggingKata
     /// </summary>
     public class TacoParser
     {
-        public TacoParser()
-        {
-
-        }
-
         private static readonly ILog Logger =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ITrackable Parse(string line)
         {
+            if (string.IsNullOrEmpty(line))
+            {
+                
+            }
             var cells = line.Split(',');
             
             if (cells.Length < 3)
             {
-                // Log that and return null
                 Logger.Error("Length is less than 3");
+                return null;
+            }
+
+            if (cells.Length < 2)
+            {
+                Logger.Warn("Missing a lat or long");
                 return null;
             }
  
             var longitude = Double.Parse(cells[0]);
             var lattitude = Double.Parse(cells[1]);
             var name = cells[2];
+
             var tacoBell = new TacoBell
             {
                 Name = name,
                 Location = new Point(lattitude,longitude)
-                
             };
             
-            // Then, return the instance of your TacoBell class
-            // Since it conforms to ITrackable
             return tacoBell;
         }
     }
