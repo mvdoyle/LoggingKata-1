@@ -11,7 +11,6 @@ namespace LoggingKata
 {
     class Program
     {
-        //Why do you think we use ILog?
         private static readonly ILog Logger =
             LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -24,6 +23,9 @@ namespace LoggingKata
             Console.WriteLine("file: " + file);
 
             var lines = File.ReadAllLines(file);
+            Logger.Error("No lines were grabbed from the csv file");
+            Logger.Warn("Only 1 line grabbed from csv file");
+
             var parser = new TacoParser();
 
             var locations = lines.Select(line => parser.Parse(line));
@@ -47,8 +49,7 @@ namespace LoggingKata
                         Latitude = locB.Location.Latitude,
                         Longitude = locB.Location.Longitude
                     };
-
-
+                    
                     var farthestDistance = GeoCalculator.GetDistance(origin, destination);
                     if (farthestDistance > distance)
                     {
