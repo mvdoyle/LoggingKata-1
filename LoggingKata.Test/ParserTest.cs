@@ -11,69 +11,6 @@ namespace LoggingKata.Test
     public class TacoParserTestFixture
     {
         [Test]
-        public void ReturnNullForEmptyString()
-        {
-            //Arrange
-            var emptyString = "";
-            var nullTestParse = new TacoParser();
-
-            //Act
-            var result = nullTestParse.Parse(emptyString);
-
-            //Assert
-            Assert.IsNull(result);
-        }
-
-        [Test]
-        public void ShouldParseLine()
-        {
-            //Arrange
-            var exampleString = "-84.677017, 34.073638";
-            var testParse = new TacoParser();
-
-            //Act
-            var result = testParse.Parse(exampleString);
-            
-            //Assert
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
-        public void ShouldReturnNullString()
-        {
-            //Arrange
-            string exampleString = null;
-            var testParse = new TacoParser();
-            
-            //Act
-            var result = testParse.Parse(exampleString);
-
-            //Assert
-            Assert.IsNull(result);
-        }
-
-        [Test]
-        public void NeedsBothLatAndLong()
-        {
-            //Arrange
-
-            //Act
-
-            //Assert
-
-        }
-
-        [Test]
-        public void NoDiscription()
-        {
-            //Arange
-
-            //Act
-
-            //Assert
-        }
-
-        [Test]
         public void ShouldNotParse()
         {
             //Arrange
@@ -96,15 +33,24 @@ namespace LoggingKata.Test
         {
             //Arrange
             var parser = new TacoParser();
-            var ParseValues = new string[] { "-84.677017, Testing", "Testing, -84.677017", "-84.283254, 34.039588, \"Taco Bell Alpharetta /... (Free trial * Add to Cart for a full POI info)" };
+            var parseValues = new string[]
+            {
+                "-84.677017, 34.039588",
+                "-84.677017, 34.039588, Testing"
+            };
+
+            var lat = 34.039588;
+            var lon = -84.677017;
 
             //Act
-            foreach (var val in ParseValues)
+            foreach (var val in parseValues)
             {
                 var result = parser.Parse(val);
 
                 //Assert
                 Assert.IsNotNull(result, $"{result} should not be null");
+                Assert.AreEqual(lat, result.Location.Latitude);
+                Assert.AreEqual(lon, result.Location.Longitude);
             }
         }
     }

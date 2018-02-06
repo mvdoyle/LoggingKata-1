@@ -23,29 +23,28 @@ namespace LoggingKata
             }
             var cells = line.Split(',');
             
-            if (cells.Length < 3)
-            {
-                Logger.Error("Length is less than 3");
-                return null;
-            }
-
             if (cells.Length < 2)
             {
                 Logger.Warn("Missing a lat or long");
                 return null;
             }
- 
-            var longitude = Double.Parse(cells[0]);
-            var lattitude = Double.Parse(cells[1]);
-            var name = cells[2];
-
-            var tacoBell = new TacoBell
-            {
-                Name = name,
-                Location = new Point(lattitude,longitude)
-            };
             
-            return tacoBell;
+            try
+            {
+                var lon = double.Parse(cells[0]);
+                var lat = double.Parse(cells[1]);
+
+                return new TacoBell
+                {
+                    Name = cells.Length > 2 ? cells[2] : null,
+                    Location = new Point(lat, lon)
+                };
+            }
+            catch (Exception e)
+            {
+                Logger.Error("Failed to parse lat and long", e);
+                return null;
+            }
         }
     }
 }
